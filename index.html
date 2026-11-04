@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generator Soal Asesmen & Kisi-Kisi | MAN Bantaeng</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+<header class="hdr">
+  <div>
+    <h1>📝 Generator Soal Asesmen & Kisi-Kisi</h1>
+    <div class="sub">Semester Ganjil & Genap · Terintegrasi ATP & KBC</div>
+  </div>
+  <span class="logo">🕌 MAN Bantaeng</span>
+</header>
+
+<div class="wrap">
+
+  <!-- ===== IDENTITAS ===== -->
+  <div class="card">
+    <h3>🏫 Identitas Asesmen</h3>
+    <div class="grid3">
+      <div class="fg"><label>Nama Madrasah</label><input id="iMadrasah" value="MAN Bantaeng"></div>
+      <div class="fg"><label>Mata Pelajaran</label><select id="iMapel" onchange="loadKelas()"></select></div>
+      <div class="fg"><label>Kelas</label>
+        <select id="iKelas" onchange="loadMateri()"><option value="">-- Pilih --</option><option>X</option><option>XI</option><option>XII</option></select></div>
+      <div class="fg"><label>Semester</label>
+        <select id="iSemester" onchange="loadMateri()"><option value="">-- Pilih --</option><option value="1">Ganjil (I)</option><option value="2">Genap (II)</option></select></div>
+      <div class="fg"><label>Nama Guru</label><input id="iGuru" placeholder="Nama guru penyusun"></div>
+      <div class="fg"><label>Tahun Pelajaran</label><input id="iTahun" value="2026/2027"></div>
+    </div>
+  </div>
+
+  <!-- ===== JENIS SOAL ===== -->
+  <div class="card">
+    <h3>🎯 Jenis Soal Asesmen</h3>
+    <div class="jenisBox">
+      <label class="jenisItem"><input type="radio" name="jenis" value="essay" checked onchange="toggleJenis()"> 📝 Soal Essay</label>
+      <label class="jenisItem"><input type="radio" name="jenis" value="pg" onchange="toggleJenis()"> 🔘 Soal Pilihan Ganda (50 Nomor)</label>
+    </div>
+
+    <div id="essayOpt" class="optBox">
+      <div class="grid2">
+        <div class="fg"><label>Jumlah Soal Essay (7–15)</label>
+          <input type="number" id="jmlEssay" value="10" min="7" max="15"></div>
+        <div class="fg"><label>Distribusi Tingkat Kesulitan</label>
+          <div class="infoDist">30% Mudah · 40% Sedang · 30% Sukar</div></div>
+      </div>
+    </div>
+
+    <div id="pgOpt" class="optBox" style="display:none">
+      <div class="infoDist big">Total 50 Nomor</div>
+      <div class="grid3">
+        <div class="fg"><label>PG Biasa (50%)</label><input value="25 soal" disabled></div>
+        <div class="fg"><label>PG Kompleks (30%)</label><input value="15 soal" disabled></div>
+        <div class="fg"><label>Benar-Salah (20%)</label><input value="10 soal" disabled></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== PILIH MATERI ===== -->
+  <div class="card" id="materiSec" style="display:none">
+    <h3>📚 Pilih Materi yang Diujikan <small>(boleh lebih dari satu)</small></h3>
+    <div class="hint">💡 Pilih minimal 1 materi. Soal akan didistribusikan ke materi yang dipilih.</div>
+    <div id="materiList" class="materiList"></div>
+  </div>
+
+  <button class="btnGen" onclick="generate()">⚡ GENERATE SOAL & KISI-KISI</button>
+
+  <!-- ===== HASIL ===== -->
+  <div id="hasil" style="display:none">
+    <div class="card">
+      <h3>📋 Kisi-Kisi Soal</h3>
+      <div class="tableWrap"><table class="tblKisi" id="tblKisi"></table></div>
+    </div>
+    <div class="card">
+      <h3>📄 Naskah Soal</h3>
+      <div id="naskahSoal"></div>
+    </div>
+    <div class="card">
+      <h3>🔑 Kunci Jawaban & Pedoman Penskoran</h3>
+      <div id="kunciJawaban"></div>
+    </div>
+    <div class="btnRow">
+      <button class="btnW" onclick="downloadWord('soal')">📥 Download Soal + Kunci (Word)</button>
+      <button class="btnW" onclick="downloadWord('kisi')">📥 Download Kisi-Kisi (Word)</button>
+      <button class="btnW" onclick="downloadWord('semua')">📥 Download Lengkap (Word)</button>
+    </div>
+  </div>
+
+</div>
+
+<script src="js/data-atp.js"></script>
+<script src="js/data-soal.js"></script>
+<script src="js/app.js"></script>
+<script src="js/export-word.js"></script>
+</body>
+</html>
